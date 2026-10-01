@@ -149,12 +149,12 @@ export default function App() {
         {/* Center-Left Background Logo Watermark (Logo 2) */}
         <div className="absolute top-[32%] -left-20 md:-left-32 w-[350px] h-[480px] md:w-[500px] md:h-[680px] opacity-[0.12] select-none">
           <img
-            src="/assets/logo2_transparent.png"
+            src="./assets/logo2_transparent.png"
             alt=""
             referrerPolicy="no-referrer"
             className="w-full h-full object-contain filter contrast-125"
             onError={(e) => {
-              e.currentTarget.src = '/assets/logo2.jpg';
+              e.currentTarget.src = './assets/logo2.jpg';
             }}
           />
         </div>
@@ -162,12 +162,12 @@ export default function App() {
         {/* Bottom-Right Background Logo Watermark */}
         <div className="absolute -bottom-20 -right-20 w-[450px] h-[340px] md:w-[600px] md:h-[420px] opacity-[0.12] select-none">
           <img
-            src="/assets/logo1_transparent.png"
+            src="./assets/logo1_transparent.png"
             alt=""
             referrerPolicy="no-referrer"
             className="w-full h-full object-contain filter contrast-125"
             onError={(e) => {
-              e.currentTarget.src = '/assets/logo1.jpg';
+              e.currentTarget.src = './assets/logo1.jpg';
             }}
           />
         </div>
@@ -182,12 +182,12 @@ export default function App() {
             className="flex items-center gap-3.5 group"
           >
             <img
-              src="/assets/logo1_trimmed.png"
+              src="./assets/logo1_trimmed.png"
               alt="Marcela Gasques - Psicóloga Clínica"
               referrerPolicy="no-referrer"
               className="h-11 md:h-13 w-auto object-contain transition-transform group-hover:scale-105"
               onError={(e) => {
-                e.currentTarget.src = '/assets/logo1.jpg';
+                e.currentTarget.src = './assets/logo1.jpg';
               }}
             />
             <div className="flex flex-col">
@@ -409,7 +409,7 @@ export default function App() {
                 {/* Hero photography */}
                 <div className="overflow-hidden rounded-2xl shadow-lg border border-[#e5d9ca] bg-[#faf8f5]">
                   <img
-                    src="/assets/marcela_gasques_real.jpg"
+                    src="./assets/marcela_gasques_real.jpg"
                     alt="Marcela Gasques - Psicóloga Clínica"
                     referrerPolicy="no-referrer"
                     className="w-full h-auto object-contain block rounded-2xl"
@@ -434,7 +434,7 @@ export default function App() {
                 <div className="absolute -top-4 -left-4 w-full h-full rounded-2xl border-2 border-[#d9ccbd] -z-10" />
                 <div className="overflow-hidden rounded-2xl shadow-md border border-[#e5d9ca] bg-[#faf8f5]">
                   <img
-                    src="/assets/marcela_gasques_real.jpg"
+                    src="./assets/marcela_gasques_real.jpg"
                     alt="Marcela Gasques - Psicóloga Clínica"
                     referrerPolicy="no-referrer"
                     className="w-full h-auto object-contain block rounded-2xl"
@@ -835,7 +835,7 @@ export default function App() {
                     <div className="px-3.5 py-2 bg-[#fcfbfa] border-b border-[#f0e7dc] flex items-center justify-between z-30 text-xs select-none">
                       <div className="flex items-center gap-2">
                         <img
-                          src="/assets/marcela_gasques_real.jpg"
+                          src="./assets/marcela_gasques_real.jpg"
                           alt="Marcela Gasques"
                           className="w-7 h-7 rounded-full object-cover border border-[#dd2a7b] p-0.5"
                           onError={(e) => {
@@ -859,7 +859,7 @@ export default function App() {
                         {/* Copy 1 */}
                         <div className="flex flex-col">
                           <img
-                            src="/assets/instagram_screenshot.jpg"
+                            src="./assets/instagram_screenshot.jpg"
                             alt="Feed Instagram Marcela Gasques"
                             className="w-full h-auto object-cover"
                             onError={(e) => {
@@ -871,7 +871,7 @@ export default function App() {
                         {/* Copy 2: Exact duplicate for continuous seamless looping */}
                         <div className="flex flex-col">
                           <img
-                            src="/assets/instagram_screenshot.jpg"
+                            src="./assets/instagram_screenshot.jpg"
                             alt="Feed Instagram Marcela Gasques"
                             className="w-full h-auto object-cover"
                             onError={(e) => {
@@ -1101,7 +1101,7 @@ export default function App() {
               {/* Brand watermark preview badge in contact */}
               <div className="p-5 rounded-2xl bg-[#faf8f5] border border-[#e2d5c5] flex items-center gap-4">
                 <img
-                  src="/assets/logo1.jpg"
+                  src="./assets/logo1.jpg"
                   alt="Marcela Gasques Logo"
                   referrerPolicy="no-referrer"
                   className="w-16 h-12 object-contain"
