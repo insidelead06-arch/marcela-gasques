@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   MessageCircle,
   Calendar,
@@ -19,9 +19,43 @@ import {
   Instagram,
   ExternalLink,
   Heart,
+  Lock,
+  Edit3,
 } from 'lucide-react';
+import { auth, onAuthStateChanged, db, User } from './firebase';
+import { doc, onSnapshot } from 'firebase/firestore';
+import { SiteContent, defaultSiteContent } from './defaultContent';
+import { AdminModal } from './AdminModal';
 
 export default function App() {
+  const [content, setContent] = useState<SiteContent>(defaultSiteContent);
+  const [adminOpen, setAdminOpen] = useState(false);
+  const [isAdminLoggedIn, setIsAdminLoggedIn] = useState<boolean>(() => {
+    try {
+      return localStorage.getItem('marcela_cms_auth') === 'ADMIN';
+    } catch {
+      return false;
+    }
+  });
+
+  const handleAdminLoginSuccess = () => {
+    try {
+      localStorage.setItem('marcela_cms_auth', 'ADMIN');
+    } catch (e) {
+      console.warn(e);
+    }
+    setIsAdminLoggedIn(true);
+  };
+
+  const handleAdminLogout = () => {
+    try {
+      localStorage.removeItem('marcela_cms_auth');
+    } catch (e) {
+      console.warn(e);
+    }
+    setIsAdminLoggedIn(false);
+  };
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeFaq, setActiveFaq] = useState<number | null>(0);
   const [selectedCard, setSelectedCard] = useState<number | null>(null);
@@ -36,79 +70,65 @@ export default function App() {
     mensagem: '',
   });
 
-  // O que podemos trabalhar em terapia (Frentes de Atuação)
-  const possibilidades = [
-    {
-      numero: '01',
-      titulo: 'Relações e vínculos',
-      texto:
-        'Algumas relações podem trazer conflitos, inseguranças ou a sensação de estar sempre vivendo situações parecidas.',
-      indicadoPara:
-        'Você enfrenta dificuldades nos relacionamentos amorosos, familiares ou de amizade, sente dificuldade em estabelecer limites ou percebe padrões que se repetem nas suas relações.',
-    },
-    {
-      numero: '02',
-      titulo: 'Perdas e luto',
-      texto:
-        'Algumas perdas mudam nossa rotina, nossos planos e até a forma como nos relacionamos com a vida.',
-      indicadoPara:
-        'Você está passando por um término, afastamento, perda de alguém importante, mudança significativa ou outro momento que esteja sendo difícil elaborar.',
-    },
-    {
-      numero: '03',
-      titulo: 'Escolhas e mudanças',
-      texto:
-        'Há momentos em que precisamos tomar decisões, mudar de direção ou lidar com uma fase da vida que já não é a mesma.',
-      indicadoPara:
-        'Você está diante de uma mudança de carreira, uma nova fase da vida, uma decisão importante ou se sente inseguro sobre qual caminho seguir.',
-    },
-    {
-      numero: '04',
-      titulo: 'Sentimentos e conflitos',
-      texto:
-        'Nem sempre é fácil entender o que estamos sentindo ou explicar por que determinadas situações nos afetam tanto.',
-      indicadoPara:
-        'Você se sente angustiado, ansioso, inseguro, sobrecarregado ou percebe conflitos internos que gostaria de compreender melhor.',
-    },
-  ];
+  useEffect(() => {
+    const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
+    });
 
-  // Perguntas Frequentes (FAQ)
-  const faqs = [
-    {
-      pergunta:
-        'Preciso saber exatamente o que está acontecendo comigo para começar a terapia?',
-      resposta:
-        'Não. Você não precisa chegar com tudo organizado ou saber exatamente o que está sentindo. A psicoterapia também pode ser um espaço para compreender melhor o que está acontecendo e encontrar palavras para aquilo que ainda não consegue nomear.',
-    },
-    {
-      pergunta: 'Como funciona a primeira sessão?',
-      resposta:
-        'A primeira sessão é um momento para nos conhecermos, para você trazer o que motivou a busca pela psicoterapia e conhecer melhor a forma como conduzo o processo. A partir dessa conversa inicial, compreendemos juntos suas necessidades e os próximos passos.',
-    },
-    {
-      pergunta: 'Por quanto tempo preciso fazer terapia?',
-      resposta:
-        'Não existe um período determinado. Cada processo terapêutico possui seu próprio ritmo e duração, que podem ser revisitados ao longo do acompanhamento.',
-    },
-    {
-      pergunta: 'Como saber se a psicoterapia é para mim?',
-      resposta:
-        'Se existe algo que tem despertado questionamentos, desconfortos ou o desejo de se compreender melhor, a terapia pode ser um espaço para olhar para isso com mais atenção. Você não precisa ter todas as respostas antes de começar.',
-    },
-    {
-      pergunta: 'Você emite recibo para reembolso no plano de saúde?',
-      resposta:
-        'Sim! Forneço recibos com todos os dados exigidos pelo Conselho Federal de Psicologia e operadoras de planos de saúde para solicitação de reembolso.',
-    },
-  ];
+    const docRef = doc(db, 'site_content', 'main');
+    const unsubscribeDoc = onSnapshot(
+      docRef,
+      (snapshot) => {
+        if (snapshot.exists()) {
+          const data = snapshot.data() as Partial<SiteContent>;
+          setContent((prev) => ({
+            ...prev,
+            ...data,
+            hero: { ...prev.hero, ...(data.hero || {}) },
+            about: { ...prev.about, ...(data.about || {}) },
+            comoFunciona: { ...prev.comoFunciona, ...(data.comoFunciona || {}) },
+            social: { ...prev.social, ...(data.social || {}) },
+            contato: { ...prev.contato, ...(data.contato || {}) },
+            possibilidades:
+              data.possibilidades && data.possibilidades.length > 0
+                ? data.possibilidades
+                : prev.possibilidades,
+            faqList:
+              data.faqList && data.faqList.length > 0
+                ? data.faqList
+                : prev.faqList,
+          }));
+        }
+      },
+      (error) => {
+        console.warn('Firestore snapshot error:', error);
+      }
+    );
 
-  const whatsappNumber = '5514997238742';
-  const whatsappDisplay = '(14) 99723-8742';
-  const instagramUrl =
-    'https://www.instagram.com/psi_marcelagasques?stkn=MTAwbjRyeG91b2lqag==';
-  const instagramHandle = '@psi_marcelagasques';
-  const tiktokUrl = 'https://www.tiktok.com/@psi_marcelagasques';
-  const tiktokHandle = '@psi_marcelagasques';
+    const handleHash = () => {
+      if (window.location.hash === '#admin') {
+        setAdminOpen(true);
+      }
+    };
+    handleHash();
+    window.addEventListener('hashchange', handleHash);
+
+    return () => {
+      unsubscribeAuth();
+      unsubscribeDoc();
+      window.removeEventListener('hashchange', handleHash);
+    };
+  }, []);
+
+  const whatsappNumber = content.whatsappNumber;
+  const whatsappDisplay = content.whatsappDisplay;
+  const crp = content.crp;
+  const instagramUrl = content.instagramUrl;
+  const instagramHandle = content.instagramHandle;
+  const tiktokUrl = content.tiktokUrl;
+  const tiktokHandle = content.tiktokHandle;
+  const possibilidades = content.possibilidades;
+  const faqs = content.faqList;
 
   const getWhatsappLink = (customText?: string) => {
     const text =
@@ -193,7 +213,7 @@ export default function App() {
                 Marcela Gasques
               </span>
               <span className="text-[10px] tracking-widest uppercase text-[#8c422f] font-semibold">
-                Psicóloga Clínica · CRP 06/238765
+                Psicóloga Clínica · CRP {crp}
               </span>
             </div>
           </a>
@@ -348,17 +368,15 @@ export default function App() {
             <div className="lg:col-span-7 space-y-6">
               <div className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-[#8c422f] font-semibold">
                 <span className="w-6 h-[1px] bg-[#8c422f]" />
-                Psicologia Clínica & Psicoterapia 100% Online
+                {content.hero.eyebrow}
               </div>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif text-[#231c17] leading-[1.14] tracking-tight text-balance">
-                Psicoterapia para adultos, on-line e com escuta voltada à Psicanálise.
+                {content.hero.title}
               </h1>
 
               <p className="text-lg md:text-xl text-[#5c5045] font-light leading-relaxed max-w-2xl">
-                Um espaço para falar sobre o que você está vivendo, compreender melhor seus
-                sentimentos e relações e olhar para aquilo que, muitas vezes, é difícil entender
-                sozinho.
+                {content.hero.subtitle}
               </p>
 
               {/* Action Buttons */}
@@ -368,7 +386,7 @@ export default function App() {
                   className="inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full text-sm font-medium bg-[#362d26] text-[#faf8f5] hover:bg-[#8c422f] transition-all shadow-md group"
                 >
                   <MessageCircle className="w-4 h-4 text-[#e5d2c1]" />
-                  <span>Quero conhecer o processo terapêutico</span>
+                  <span>{content.hero.ctaPrimary}</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </a>
 
@@ -376,7 +394,7 @@ export default function App() {
                   href="#cuidado"
                   className="inline-flex items-center justify-center px-7 py-3.5 rounded-full text-sm font-medium border border-[#ded2c1] text-[#362d26] hover:bg-[#ebe3d7]/60 transition-colors"
                 >
-                  O que podemos trabalhar
+                  {content.hero.ctaSecondary}
                 </a>
               </div>
 
@@ -442,7 +460,7 @@ export default function App() {
                 </div>
                 <div className="text-center mt-3">
                   <span className="text-xs tracking-wider uppercase text-[#7a6b5e]">
-                    Marcela Gasques · CRP 06/238765
+                    Marcela Gasques · CRP {crp}
                   </span>
                 </div>
               </div>
@@ -452,28 +470,17 @@ export default function App() {
             <div className="lg:col-span-7 order-1 lg:order-2 space-y-6">
               <div className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-[#8c422f] font-semibold">
                 <span className="w-6 h-[1px] bg-[#8c422f]" />
-                Conheça a profissional
+                {content.about.eyebrow}
               </div>
 
               <h2 className="text-3xl md:text-4xl font-serif text-[#231c17] leading-tight">
-                A terapia começa quando aquilo que incomoda pode finalmente ser colocado em palavras.
+                {content.about.title}
               </h2>
 
               <div className="space-y-4 text-base md:text-lg text-[#55473c] font-light leading-relaxed">
-                <p>
-                  Olá, sou <strong className="font-semibold text-[#2c2520]">Marcela Gasques</strong>, psicóloga. 
-                  Meu trabalho é oferecer um espaço de escuta onde você possa falar sobre o que está vivendo com liberdade, 
-                  sem precisar chegar com tudo organizado ou saber exatamente o que está acontecendo.
-                </p>
-                <p>
-                  Na psicoterapia, podemos olhar juntos para sentimentos, relações, conflitos, perdas, escolhas e situações 
-                  que parecem se repetir na sua vida.
-                </p>
-                <p>
-                  Minha escuta é orientada pela <strong className="font-medium text-[#2c2520]">Psicanálise</strong>, 
-                  uma abordagem que busca compreender não apenas aquilo que aparece de forma mais evidente, mas também 
-                  os sentidos e questões que podem estar por trás do que sentimos, pensamos e vivemos.
-                </p>
+                <p>{content.about.p1}</p>
+                <p>{content.about.p2}</p>
+                <p>{content.about.p3}</p>
               </div>
 
               {/* Three Pillars */}
@@ -523,17 +530,18 @@ export default function App() {
               Frentes de Atuação
             </div>
             <h2 className="text-3xl md:text-5xl font-serif text-[#231c17] tracking-tight">
-              O que podemos trabalhar em terapia
+              {content.possibilidadesTitle}
             </h2>
             <p className="text-base md:text-lg text-[#5c5045] mt-4 font-light leading-relaxed">
-              A terapia pode ser um espaço para compreender melhor o que você está vivendo,
-              seus sentimentos, relações e os momentos de mudança que fazem parte da sua história.
+              {content.possibilidadesSubtitle}
             </p>
           </div>
 
           {/* 4 Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {possibilidades.map((item) => {
+              const descricao = (item as any).descricao || (item as any).texto;
+              const detalhes = (item as any).detalhes || (item as any).indicadoPara;
               return (
                 <div
                   key={item.numero}
@@ -554,18 +562,20 @@ export default function App() {
 
                     {/* Main Description */}
                     <p className="text-base text-[#4a3e35] leading-relaxed font-light mb-6">
-                      {item.texto}
+                      {descricao}
                     </p>
 
                     {/* Quando buscar */}
-                    <div className="pt-5 border-t border-[#f0e7dc] space-y-2 mb-6">
-                      <div className="text-xs font-semibold text-[#8c422f] uppercase tracking-wider">
-                        Pode fazer sentido buscar terapia quando:
+                    {detalhes && (
+                      <div className="pt-5 border-t border-[#f0e7dc] space-y-2 mb-6">
+                        <div className="text-xs font-semibold text-[#8c422f] uppercase tracking-wider">
+                          Pode fazer sentido buscar terapia quando:
+                        </div>
+                        <p className="text-sm text-[#5c5045] leading-relaxed">
+                          {detalhes}
+                        </p>
                       </div>
-                      <p className="text-sm text-[#5c5045] leading-relaxed">
-                        {item.indicadoPara}
-                      </p>
-                    </div>
+                    )}
                   </div>
 
                   {/* Saiba mais → CTA */}
@@ -878,16 +888,15 @@ export default function App() {
             <div className="lg:col-span-6 space-y-6 order-1 lg:order-2 text-left">
               <div className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-[#8c422f] font-semibold">
                 <span className="w-6 h-[1px] bg-[#8c422f]" />
-                Encontre-me nas redes
+                {content.social.eyebrow}
               </div>
 
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-[#231c17] leading-tight tracking-tight">
-                Para continuar essa conversa fora da sessão.
+                {content.social.title}
               </h2>
 
               <p className="text-base sm:text-lg text-[#55473c] font-light leading-relaxed">
-                No Instagram e no TikTok, compartilho um pouco do meu olhar sobre Psicologia,
-                relações, sentimentos e as questões que surgem ao longo da vida.
+                {content.social.description}
               </p>
 
               {/* Botões / Cards para as Redes Sociais */}
@@ -982,10 +991,10 @@ export default function App() {
               <span className="w-6 h-[1px] bg-[#8c422f]" />
             </div>
             <h2 className="text-3xl md:text-5xl font-serif text-[#231c17] tracking-tight">
-              Perguntas frequentes
+              {content.faqTitle}
             </h2>
             <p className="text-base text-[#5c5045] mt-4 font-light">
-              Tire suas principais dúvidas antes de iniciar seu processo psicoterapêutico.
+              {content.faqSubtitle}
             </p>
           </div>
 
@@ -1050,15 +1059,15 @@ export default function App() {
             <div className="lg:col-span-5 space-y-6">
               <div className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-[#8c422f] font-semibold">
                 <span className="w-6 h-[1px] bg-[#8c422f]" />
-                Primeiro Passo
+                {content.contato.eyebrow}
               </div>
 
               <h2 className="text-3xl md:text-5xl font-serif text-[#231c17] leading-tight">
-                Vamos conversar?
+                {content.contato.title}
               </h2>
 
               <p className="text-base md:text-lg text-[#55473c] font-light leading-relaxed">
-                Você não precisa ter tudo organizado para começar. Podemos começar pelo que hoje está pedindo espaço para ser dito.
+                {content.contato.subtitle}
               </p>
 
               {/* Direct WhatsApp Callout Card */}
@@ -1084,7 +1093,7 @@ export default function App() {
                   className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-sm font-semibold bg-[#2e7d32] text-white hover:bg-[#1b5e20] transition-colors shadow-sm"
                 >
                   <MessageCircle className="w-4 h-4" />
-                  <span>Falar com Marcela</span>
+                  <span>{content.contato.buttonText}</span>
                   <ArrowRight className="w-4 h-4" />
                 </a>
               </div>
@@ -1099,7 +1108,7 @@ export default function App() {
                 />
                 <div className="text-xs text-[#6e5f52]">
                   <strong className="block font-semibold text-[#2c2520] font-serif text-sm">
-                    Marcela Gasques · CRP 06/238765
+                    Marcela Gasques · CRP {crp}
                   </strong>
                   Psicóloga Clínica · Atendimento ético com escuta atenta e sigilo integral.
                 </div>
@@ -1198,7 +1207,7 @@ export default function App() {
 
                     <div className="space-y-1.5">
                       <label className="text-xs font-semibold uppercase tracking-wider text-[#55473c]">
-                        O que trouxe você até aqui?
+                        {content.contato.fieldLabel}
                       </label>
                       <select
                         value={formData.assunto}
@@ -1207,12 +1216,11 @@ export default function App() {
                         }
                         className="w-full px-4 py-3 rounded-xl border border-[#ded2c1] bg-[#faf8f5] text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#8c422f]/30"
                       >
-                        <option value="Quero conhecer a psicoterapia">Quero conhecer a psicoterapia</option>
-                        <option value="Relações e vínculos">Relações e vínculos</option>
-                        <option value="Perdas e luto">Perdas e luto</option>
-                        <option value="Escolhas e mudanças">Escolhas e mudanças</option>
-                        <option value="Ansiedade e questões emocionais">Ansiedade e questões emocionais</option>
-                        <option value="Outro">Outro</option>
+                        {content.contato.fieldOptions.map((opt) => (
+                          <option key={opt} value={opt}>
+                            {opt}
+                          </option>
+                        ))}
                       </select>
                     </div>
 
@@ -1266,7 +1274,7 @@ export default function App() {
                       className="w-full py-4 rounded-xl text-sm font-semibold bg-[#2e7d32] text-white hover:bg-[#1b5e20] transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer group"
                     >
                       <MessageCircle className="w-5 h-5 text-white" />
-                      <span>Falar com Marcela</span>
+                      <span>{content.contato.buttonText}</span>
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </button>
                   </form>
@@ -1286,7 +1294,7 @@ export default function App() {
                 Marcela Gasques
               </span>
               <p className="text-xs text-[#a8988a] uppercase tracking-widest mt-1">
-                Psicóloga Clínica · CRP 06/238765 · Atendimento 100% Online
+                Psicóloga Clínica · CRP {crp} · Atendimento 100% Online
               </p>
             </div>
 
@@ -1347,9 +1355,21 @@ export default function App() {
           </div>
 
           <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-[#8a7b6e]">
-            <p>
-              © {new Date().getFullYear()} Marcela Gasques. Todos os direitos reservados.
-            </p>
+            <div className="flex flex-wrap items-center gap-3">
+              <p>
+                © {new Date().getFullYear()} Marcela Gasques. Todos os direitos reservados.
+              </p>
+              <span>·</span>
+              <button
+                type="button"
+                onClick={() => setAdminOpen(true)}
+                className="inline-flex items-center gap-1.5 text-xs text-[#b8a695] hover:text-[#faf8f5] transition-colors cursor-pointer py-1 px-2 rounded-md hover:bg-white/5"
+                title="Acessar painel para alterar textos do site"
+              >
+                <Lock className="w-3 h-3 text-[#8c422f]" />
+                <span className="font-medium">Painel de Textos</span>
+              </button>
+            </div>
             <p className="max-w-md text-center md:text-right text-[11px] leading-relaxed">
               Atendimento em conformidade com o Código de Ética do Psicólogo (CFP).
               Em caso de urgência emocional ou crise, ligue para o CVV no número 188.
@@ -1358,17 +1378,43 @@ export default function App() {
         </div>
       </footer>
 
+      {/* FLOATING ADMIN QUICK ACCESS BADGE FOR LOGGED-IN ADMIN */}
+      {isAdminLoggedIn && (
+        <div className="fixed top-24 right-6 z-40 bg-[#231c17]/95 backdrop-blur-md text-[#faf8f5] px-3.5 py-2 rounded-2xl shadow-xl border border-white/10 flex items-center gap-3 text-xs">
+          <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+          <span className="hidden sm:inline font-medium">ADMIN Conectado</span>
+          <button
+            onClick={() => setAdminOpen(true)}
+            className="px-3 py-1 bg-[#8c422f] hover:bg-[#6e3020] text-white rounded-lg font-semibold transition-colors cursor-pointer flex items-center gap-1.5"
+          >
+            <Edit3 className="w-3.5 h-3.5" />
+            <span>Editar Textos</span>
+          </button>
+        </div>
+      )}
+
+      {/* ADMIN CMS MODAL */}
+      <AdminModal
+        isOpen={adminOpen}
+        onClose={() => setAdminOpen(false)}
+        isAdminLoggedIn={isAdminLoggedIn}
+        onLoginSuccess={handleAdminLoginSuccess}
+        onLogout={handleAdminLogout}
+        content={content}
+        onUpdateContent={(newContent) => setContent(newContent)}
+      />
+
       {/* FLOATING WHATSAPP BUTTON */}
       <a
         href={getWhatsappLink()}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Falar com Marcela Gasques no WhatsApp"
-        className="fixed bottom-6 right-6 z-50 inline-flex items-center gap-2.5 px-4 py-3 rounded-full bg-[#2e7d32] text-white shadow-xl hover:bg-[#1b5e20] hover:scale-105 active:scale-95 transition-all group"
+        className="fixed bottom-6 right-6 z-40 inline-flex items-center gap-2.5 px-4 py-3 rounded-full bg-[#2e7d32] text-white shadow-xl hover:bg-[#1b5e20] hover:scale-105 active:scale-95 transition-all group"
       >
         <MessageCircle className="w-5 h-5 text-white" />
         <span className="text-xs font-semibold tracking-wide pr-1">
-          Falar com Marcela
+          {content.contato.buttonText}
         </span>
       </a>
     </div>

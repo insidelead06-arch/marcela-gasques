@@ -1,0 +1,90 @@
+{
+  "entities": {
+    "SiteContent": {
+      "title": "SiteContent",
+      "description": "Customizable texts, descriptions, contact info, and pillars for the psychologist landing page",
+      "type": "object",
+      "properties": {
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp of the last edit"
+        },
+        "updatedBy": {
+          "type": "string",
+          "description": "Email or UID of the admin who updated the content"
+        },
+        "whatsappNumber": {
+          "type": "string",
+          "description": "WhatsApp contact number with country and area code"
+        },
+        "whatsappDisplay": {
+          "type": "string",
+          "description": "Formatted WhatsApp number for display"
+        },
+        "crp": {
+          "type": "string",
+          "description": "Professional registration number (CRP)"
+        },
+        "hero": {
+          "type": "object",
+          "description": "Texts for the Hero section"
+        },
+        "about": {
+          "type": "object",
+          "description": "Texts for the About section"
+        },
+        "possibilidades": {
+          "type": "array",
+          "description": "List of therapeutic focus areas"
+        },
+        "comoFunciona": {
+          "type": "object",
+          "description": "Steps and explanation of online psychotherapy"
+        },
+        "social": {
+          "type": "object",
+          "description": "Texts and social profile links"
+        },
+        "faq": {
+          "type": "array",
+          "description": "List of frequently asked questions and answers"
+        },
+        "contato": {
+          "type": "object",
+          "description": "Headings, subtitle and CTA texts for the contact section"
+        }
+      },
+      "required": ["updatedAt"]
+    },
+    "Admin": {
+      "title": "Admin",
+      "description": "Registered administrator who can manage site content",
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string",
+          "description": "Email address of the administrator"
+        },
+        "role": {
+          "type": "string",
+          "description": "Role level (admin)"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Creation timestamp"
+        }
+      },
+      "required": ["email", "role"]
+    }
+  },
+  "firestore": {
+    "/site_content/{contentId}": {
+      "schema": "SiteContent",
+      "description": "Public site content documents (read by visitors, edited by admin)"
+    },
+    "/admins/{userId}": {
+      "schema": "Admin",
+      "description": "Admin users allowed to edit website content"
+    }
+  }
+}

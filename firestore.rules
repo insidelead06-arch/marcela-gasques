@@ -1,0 +1,21 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // Default Deny Catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Site Content (Public site texts, managed via admin panel with credentials)
+    match /site_content/{contentId} {
+      allow get, list: if isValidId(contentId);
+      allow create, update: if isValidId(contentId);
+      allow delete: if false;
+    }
+  }
+}
