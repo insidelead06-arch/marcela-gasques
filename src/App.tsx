@@ -30,49 +30,45 @@ export default function App() {
     nome: '',
     whatsapp: '',
     email: '',
-    assunto: 'Psicoterapia (Autoconhecimento)',
+    assunto: 'Quero conhecer a psicoterapia',
     modalidade: 'online',
     periodo: 'tarde',
     mensagem: '',
   });
 
-  // Eixos Principais de Cuidado Psicoterapêutico
+  // O que podemos trabalhar em terapia (Frentes de Atuação)
   const possibilidades = [
     {
       numero: '01',
-      titulo: 'Psicoterapia',
+      titulo: 'Relações e vínculos',
       texto:
-        'Um espaço para compreender sua história, olhar para os vínculos que constrói e dar novos sentidos às experiências que atravessam sua vida.',
-      destaque: 'Autoconhecimento e reelaboração de trajetórias',
+        'Algumas relações podem trazer conflitos, inseguranças ou a sensação de estar sempre vivendo situações parecidas.',
       indicadoPara:
-        'Para quem busca entender sentimentos difíceis, angústias, ansiedade ou deseja trilhar um processo contínuo de autodescoberta e fortalecimento emocional.',
+        'Você enfrenta dificuldades nos relacionamentos amorosos, familiares ou de amizade, sente dificuldade em estabelecer limites ou percebe padrões que se repetem nas suas relações.',
     },
     {
       numero: '02',
-      titulo: 'Relações e vínculos',
+      titulo: 'Perdas e luto',
       texto:
-        'Um espaço para olhar para os relacionamentos, os conflitos, os padrões que se repetem e a forma como você se posiciona diante do outro.',
-      destaque: 'Dinâmicas afetivas e limites saudáveis',
+        'Algumas perdas mudam nossa rotina, nossos planos e até a forma como nos relacionamos com a vida.',
       indicadoPara:
-        'Dificuldades em relacionamentos amorosos, familiares, amizades ou ambiente de trabalho, além de padrões de repetição e dependência emocional.',
+        'Você está passando por um término, afastamento, perda de alguém importante, mudança significativa ou outro momento que esteja sendo difícil elaborar.',
     },
     {
       numero: '03',
-      titulo: 'Perdas e luto',
+      titulo: 'Escolhas e mudanças',
       texto:
-        'Acompanhamento psicológico diante de perdas, rompimentos e mudanças, respeitando o tempo e a maneira singular de cada pessoa vivenciar esses processos.',
-      destaque: 'Acolhimento da dor e reconstrução de sentidos',
+        'Há momentos em que precisamos tomar decisões, mudar de direção ou lidar com uma fase da vida que já não é a mesma.',
       indicadoPara:
-        'Morte de pessoas queridas, términos de ciclos e relacionamentos, perdas gestacionais, transições de carreira ou diagnósticos de saúde.',
+        'Você está diante de uma mudança de carreira, uma nova fase da vida, uma decisão importante ou se sente inseguro sobre qual caminho seguir.',
     },
     {
       numero: '04',
-      titulo: 'Escolhas e mudanças',
+      titulo: 'Sentimentos e conflitos',
       texto:
-        'Para momentos em que decisões, transições e mudanças na vida despertam dúvidas, conflitos ou a necessidade de compreender novos caminhos.',
-      destaque: 'Transições com segurança e discernimento',
+        'Nem sempre é fácil entender o que estamos sentindo ou explicar por que determinadas situações nos afetam tanto.',
       indicadoPara:
-        'Mudança de carreira, transição para a vida adulta, dilemas existenciais e tomada de decisões que geram insegurança ou paralisia.',
+        'Você se sente angustiado, ansioso, inseguro, sobrecarregado ou percebe conflitos internos que gostaria de compreender melhor.',
     },
   ];
 
@@ -111,6 +107,8 @@ export default function App() {
   const instagramUrl =
     'https://www.instagram.com/psi_marcelagasques?stkn=MTAwbjRyeG91b2lqag==';
   const instagramHandle = '@psi_marcelagasques';
+  const tiktokUrl = 'https://www.tiktok.com/@psi_marcelagasques';
+  const tiktokHandle = '@psi_marcelagasques';
 
   const getWhatsappLink = (customText?: string) => {
     const text =
@@ -126,7 +124,7 @@ export default function App() {
     const msg =
       `Olá, Marcela! Preenchi o formulário no seu site:\n\n` +
       `• Nome: ${formData.nome}\n` +
-      `• Assunto de interesse: ${formData.assunto}\n` +
+      `• O que me trouxe até aqui: ${formData.assunto}\n` +
       `• Formato: Atendimento 100% Online\n` +
       `• Melhor Período: ${formData.periodo}\n` +
       (formData.whatsapp ? `• Meu WhatsApp: ${formData.whatsapp}\n` : '') +
@@ -195,7 +193,7 @@ export default function App() {
                 Marcela Gasques
               </span>
               <span className="text-[10px] tracking-widest uppercase text-[#8c422f] font-semibold">
-                Psicóloga Clínica
+                Psicóloga Clínica · CRP 06/238765
               </span>
             </div>
           </a>
@@ -212,7 +210,7 @@ export default function App() {
               href="#cuidado"
               className="hover:text-[#8c422f] transition-colors py-1 whitespace-nowrap"
             >
-              Possibilidades de Cuidado
+              O que Trabalhamos
             </a>
             <a
               href="#como-funciona"
@@ -225,7 +223,7 @@ export default function App() {
               className="hover:text-[#8c422f] transition-colors py-1 flex items-center gap-1.5 whitespace-nowrap"
             >
               <Instagram className="w-3.5 h-3.5 text-[#8c422f]" />
-              <span>Instagram</span>
+              <span>Redes Sociais</span>
             </a>
             <a
               href="#faq"
@@ -285,7 +283,7 @@ export default function App() {
                 onClick={() => setMobileMenuOpen(false)}
                 className="py-3 px-3 rounded-xl hover:bg-[#f2ebe2] hover:text-[#8c422f] transition-colors flex items-center justify-between"
               >
-                <span>Possibilidades de Cuidado</span>
+                <span>O que Podemos Trabalhar</span>
                 <ArrowRight className="w-4 h-4 text-[#b09e8e]" />
               </a>
               <a
@@ -303,7 +301,7 @@ export default function App() {
               >
                 <div className="flex items-center gap-2">
                   <Instagram className="w-4 h-4 text-[#8c422f]" />
-                  <span>Instagram Oficial ({instagramHandle})</span>
+                  <span>Redes Sociais (Instagram & TikTok)</span>
                 </div>
                 <ArrowRight className="w-4 h-4 text-[#b09e8e]" />
               </a>
@@ -353,15 +351,14 @@ export default function App() {
                 Psicologia Clínica & Psicoterapia 100% Online
               </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif text-[#231c17] leading-[1.12] tracking-tight text-balance">
-                Um espaço seguro para acolher sua história e dar novos sentidos aos seus caminhos.
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-serif text-[#231c17] leading-[1.14] tracking-tight text-balance">
+                Psicoterapia para adultos, on-line e com escuta voltada à Psicanálise.
               </h1>
 
               <p className="text-lg md:text-xl text-[#5c5045] font-light leading-relaxed max-w-2xl">
-                Psicoterapia com escuta atenta, ética e respeito à sua singularidade.
-                Atendimento individual para adolescentes e adultos, na modalidade{' '}
-                <strong className="font-semibold text-[#231c17]">100% online</strong>{' '}
-                para todo o Brasil e brasileiros no exterior.
+                Um espaço para falar sobre o que você está vivendo, compreender melhor seus
+                sentimentos e relações e olhar para aquilo que, muitas vezes, é difícil entender
+                sozinho.
               </p>
 
               {/* Action Buttons */}
@@ -371,7 +368,7 @@ export default function App() {
                   className="inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full text-sm font-medium bg-[#362d26] text-[#faf8f5] hover:bg-[#8c422f] transition-all shadow-md group"
                 >
                   <MessageCircle className="w-4 h-4 text-[#e5d2c1]" />
-                  <span>Agendar uma primeira conversa</span>
+                  <span>Quero conhecer o processo terapêutico</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </a>
 
@@ -379,7 +376,7 @@ export default function App() {
                   href="#cuidado"
                   className="inline-flex items-center justify-center px-7 py-3.5 rounded-full text-sm font-medium border border-[#ded2c1] text-[#362d26] hover:bg-[#ebe3d7]/60 transition-colors"
                 >
-                  Possibilidades de cuidado
+                  O que podemos trabalhar
                 </a>
               </div>
 
@@ -387,7 +384,7 @@ export default function App() {
               <div className="pt-6 border-t border-[#e9e1d5] flex flex-wrap items-center gap-6 text-xs text-[#6b5d52]">
                 <div className="flex items-center gap-2">
                   <Shield className="w-4 h-4 text-[#8c422f]" />
-                  <span>Sigilo profissional ético (CFP)</span>
+                  <span>Sigilo profissional ético (CFP · CRP 06/238765)</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Video className="w-4 h-4 text-[#8c422f]" />
@@ -445,7 +442,7 @@ export default function App() {
                 </div>
                 <div className="text-center mt-3">
                   <span className="text-xs tracking-wider uppercase text-[#7a6b5e]">
-                    Marcela Gasques · Atendimento Clínico
+                    Marcela Gasques · CRP 06/238765
                   </span>
                 </div>
               </div>
@@ -459,24 +456,23 @@ export default function App() {
               </div>
 
               <h2 className="text-3xl md:text-4xl font-serif text-[#231c17] leading-tight">
-                Uma escuta sensível para o que é único em você.
+                A terapia começa quando aquilo que incomoda pode finalmente ser colocado em palavras.
               </h2>
 
               <div className="space-y-4 text-base md:text-lg text-[#55473c] font-light leading-relaxed">
                 <p>
-                  Olá, sou <strong className="font-semibold text-[#2c2520]">Marcela Gasques</strong>. 
-                  Atuo como psicóloga clínica oferecendo um ambiente seguro, acolhedor e desprovido 
-                  de julgamentos para adolescentes e adultos.
+                  Olá, sou <strong className="font-semibold text-[#2c2520]">Marcela Gasques</strong>, psicóloga. 
+                  Meu trabalho é oferecer um espaço de escuta onde você possa falar sobre o que está vivendo com liberdade, 
+                  sem precisar chegar com tudo organizado ou saber exatamente o que está acontecendo.
                 </p>
                 <p>
-                  Acredito na psicoterapia como um caminho potente de reflexão e reconexão. 
-                  Não se trata de fornecer receitas prontas, mas de construir, com respeito e 
-                  atenção profunda, um espaço onde suas experiências, dúvidas e angústias possam ser 
-                  compreendidas com clareza.
+                  Na psicoterapia, podemos olhar juntos para sentimentos, relações, conflitos, perdas, escolhas e situações 
+                  que parecem se repetir na sua vida.
                 </p>
                 <p>
-                  Conduzo cada atendimento respeitando integralmente o tempo e a singularidade 
-                  de cada pessoa que busca acompanhamento.
+                  Minha escuta é orientada pela <strong className="font-medium text-[#2c2520]">Psicanálise</strong>, 
+                  uma abordagem que busca compreender não apenas aquilo que aparece de forma mais evidente, mas também 
+                  os sentidos e questões que podem estar por trás do que sentimos, pensamos e vivemos.
                 </p>
               </div>
 
@@ -517,97 +513,74 @@ export default function App() {
         </div>
       </section>
 
-      {/* POSSIBILIDADES DE CUIDADO */}
+      {/* O QUE PODEMOS TRABALHAR EM TERAPIA */}
       <section id="cuidado" className="py-24 relative z-10">
         <div className="max-w-6xl mx-auto px-6">
           {/* Section Heading */}
-          <div className="max-w-2xl mb-16">
+          <div className="max-w-3xl mb-16">
             <div className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-[#8c422f] font-semibold mb-3">
               <span className="w-6 h-[1px] bg-[#8c422f]" />
               Frentes de Atuação
             </div>
             <h2 className="text-3xl md:text-5xl font-serif text-[#231c17] tracking-tight">
-              Possibilidades de cuidado
+              O que podemos trabalhar em terapia
             </h2>
             <p className="text-base md:text-lg text-[#5c5045] mt-4 font-light leading-relaxed">
-              Caminhos terapêuticos adaptados às demandas que se manifestam em diferentes 
-              momentos da sua trajetória.
+              A terapia pode ser um espaço para compreender melhor o que você está vivendo,
+              seus sentimentos, relações e os momentos de mudança que fazem parte da sua história.
             </p>
           </div>
 
           {/* 4 Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {possibilidades.map((item, idx) => {
-              const isSelected = selectedCard === idx;
+            {possibilidades.map((item) => {
               return (
                 <div
                   key={item.numero}
-                  onClick={() => setSelectedCard(isSelected ? null : idx)}
-                  className={`group relative p-8 md:p-10 rounded-2xl transition-all duration-300 border cursor-pointer ${
-                    isSelected
-                      ? 'bg-[#ffffff] border-[#8c422f] shadow-lg ring-1 ring-[#8c422f]/20'
-                      : 'bg-[#faf8f5] border-[#e5d9ca] hover:border-[#b8a695] hover:bg-[#ffffff] hover:shadow-md'
-                  }`}
+                  className="group relative p-8 md:p-10 rounded-2xl transition-all duration-300 border bg-[#faf8f5] border-[#e5d9ca] hover:border-[#b8a695] hover:bg-[#ffffff] hover:shadow-md flex flex-col justify-between"
                 >
-                  {/* Subtle top indicator */}
-                  <div className="flex items-baseline justify-between mb-6">
-                    <span className="font-serif text-3xl md:text-4xl text-[#b09e8e] group-hover:text-[#8c422f] transition-colors tabular-nums">
-                      {item.numero}
-                    </span>
-                    <span className="text-xs uppercase tracking-wider text-[#8c422f] font-medium opacity-80">
-                      {item.destaque}
-                    </span>
-                  </div>
+                  <div>
+                    {/* Top Number indicator - clean and without red badge */}
+                    <div className="flex items-center justify-between mb-5">
+                      <span className="font-serif text-3xl md:text-4xl text-[#b09e8e] group-hover:text-[#8c422f] transition-colors tabular-nums">
+                        {item.numero}
+                      </span>
+                    </div>
 
-                  {/* Card Title */}
-                  <h3 className="text-2xl md:text-3xl font-serif text-[#231c17] mb-4 group-hover:text-[#8c422f] transition-colors">
-                    {item.titulo}
-                  </h3>
+                    {/* Card Title */}
+                    <h3 className="text-2xl md:text-3xl font-serif text-[#231c17] mb-4 group-hover:text-[#8c422f] transition-colors">
+                      {item.titulo}
+                    </h3>
 
-                  {/* User's Exact Body Text */}
-                  <p className="text-base text-[#4a3e35] leading-relaxed font-light mb-6">
-                    {item.texto}
-                  </p>
+                    {/* Main Description */}
+                    <p className="text-base text-[#4a3e35] leading-relaxed font-light mb-6">
+                      {item.texto}
+                    </p>
 
-                  {/* Expandable details */}
-                  {isSelected && (
-                    <div className="pt-4 border-t border-[#f0e7dc] space-y-3">
+                    {/* Quando buscar */}
+                    <div className="pt-5 border-t border-[#f0e7dc] space-y-2 mb-6">
                       <div className="text-xs font-semibold text-[#8c422f] uppercase tracking-wider">
-                        Quando buscar este cuidado:
+                        Pode fazer sentido buscar terapia quando:
                       </div>
                       <p className="text-sm text-[#5c5045] leading-relaxed">
                         {item.indicadoPara}
                       </p>
                     </div>
-                  )}
+                  </div>
 
-                  {/* Direct WhatsApp Action for this Specific Subject */}
-                  <div className="pt-4 border-t border-[#f0e7dc]">
+                  {/* Saiba mais → CTA */}
+                  <div className="pt-4 border-t border-[#f0e7dc] flex items-center justify-between">
                     <a
                       href={getWhatsappLink(
-                        `Olá, Marcela! Vi o assunto "${item.titulo}" no seu site e gostaria de agendar uma consulta sobre esse tema.`
+                        `Olá, Marcela! Li sobre "${item.titulo}" no seu site e gostaria de saber mais sobre o atendimento terapêutico voltado a esse tema.`
                       )}
                       target="_blank"
                       rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs font-semibold bg-[#362d26] text-[#faf8f5] hover:bg-[#8c422f] transition-all shadow-xs group/btn"
+                      className="inline-flex items-center gap-2 text-sm font-semibold text-[#8c422f] hover:text-[#52251a] transition-colors group/link"
                     >
-                      <MessageCircle className="w-3.5 h-3.5 text-[#e5d2c1]" />
-                      <span>Falar sobre {item.titulo} no WhatsApp</span>
-                      <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 transition-transform" />
+                      <span>Saiba mais</span>
+                      <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
                     </a>
-                  </div>
-
-                  {/* Toggle indicator */}
-                  <div className="mt-3 flex items-center justify-between text-xs text-[#8a7b6e]">
-                    <span className="group-hover:text-[#362d26] transition-colors">
-                      {isSelected ? 'Ocultar detalhes' : 'Ver mais detalhes'}
-                    </span>
-                    {isSelected ? (
-                      <ChevronUp className="w-4 h-4 text-[#8c422f]" />
-                    ) : (
-                      <ChevronDown className="w-4 h-4 text-[#8a7b6e] group-hover:text-[#8c422f] transition-colors" />
-                    )}
                   </div>
                 </div>
               );
@@ -775,15 +748,22 @@ export default function App() {
                 </div>
 
                 {/* Floating Badge Bottom Left */}
-                <div className="absolute -bottom-2 -left-3 sm:-left-6 z-30 bg-white/95 backdrop-blur-md border border-[#e5d9ca] px-3.5 py-2 rounded-2xl shadow-lg flex items-center gap-2.5">
-                  <div className="w-7 h-7 rounded-full bg-[#fbe9e7] text-[#8c422f] flex items-center justify-center shrink-0">
-                    <Heart className="w-4 h-4 fill-[#8c422f]" />
+                <a
+                  href={tiktokUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="absolute -bottom-2 -left-3 sm:-left-6 z-30 bg-white/95 backdrop-blur-md border border-[#e5d9ca] px-3.5 py-2 rounded-2xl shadow-lg flex items-center gap-2.5 hover:border-[#111111] transition-colors"
+                >
+                  <div className="w-7 h-7 rounded-full bg-[#111111] text-white flex items-center justify-center shrink-0">
+                    <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 3 15.69 6.34 6.34 0 0 0 9.34 22a6.34 6.34 0 0 0 6.34-6.34V8.58a8.27 8.27 0 0 0 4.84 1.55v-3.44a4.85 4.85 0 0 1-.93 0z" />
+                    </svg>
                   </div>
                   <div className="text-left">
-                    <span className="block text-[11px] font-bold text-[#231c17] leading-tight">Reflexões & Cuidado</span>
-                    <span className="block text-[10px] text-[#7a6b5e]">Publicações contínuas</span>
+                    <span className="block text-[11px] font-bold text-[#231c17] leading-tight">TikTok Oficial</span>
+                    <span className="block text-[10px] text-[#7a6b5e] font-mono">{tiktokHandle}</span>
                   </div>
-                </div>
+                </a>
 
                 {/* Realistic Smartphone Chassis */}
                 <a
@@ -894,85 +874,96 @@ export default function App() {
               </div>
             </div>
 
-            {/* Right Column: Copy & Follow on Instagram Action */}
+            {/* Right Column: Copy & Social Links */}
             <div className="lg:col-span-6 space-y-6 order-1 lg:order-2 text-left">
               <div className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-[#8c422f] font-semibold">
                 <span className="w-6 h-[1px] bg-[#8c422f]" />
-                Conecte-se pelas Redes Sociais
+                Encontre-me nas redes
               </div>
 
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-[#231c17] leading-tight tracking-tight">
-                Reflexões diárias, saúde emocional e escuta ativa no seu cotidiano.
+                Para continuar essa conversa fora da sessão.
               </h2>
 
               <p className="text-base sm:text-lg text-[#55473c] font-light leading-relaxed">
-                No Instagram <strong className="font-semibold text-[#231c17]">{instagramHandle}</strong>, 
-                compartilho textos, orientações e pensamentos contínuos sobre autoconhecimento, relações interpessoais, 
-                manejo da ansiedade e o cuidado com a sua história.
+                No Instagram e no TikTok, compartilho um pouco do meu olhar sobre Psicologia,
+                relações, sentimentos e as questões que surgem ao longo da vida.
               </p>
 
-              {/* Benefits / Topics Covered */}
-              <div className="space-y-3.5 pt-2">
-                <div className="flex items-start gap-3">
-                  <div className="w-7 h-7 rounded-xl bg-[#f0e7dc] text-[#8c422f] flex items-center justify-center shrink-0 mt-0.5">
-                    <Sparkles className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-semibold text-[#231c17]">Pílulas de Consciência & Autocuidado</h4>
-                    <p className="text-xs text-[#6e5f52] leading-relaxed">
-                      Textos e reflexões para respirar fundo, desacelerar e cultivar limites saudáveis no seu dia a dia.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <div className="w-7 h-7 rounded-xl bg-[#f0e7dc] text-[#8c422f] flex items-center justify-center shrink-0 mt-0.5">
-                    <Heart className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-semibold text-[#231c17]">Comunidade Segura e Acolhedora</h4>
-                    <p className="text-xs text-[#6e5f52] leading-relaxed">
-                      Uma troca pautada na ética profissional da psicologia, sem pressões ou receitas prontas.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <div className="w-7 h-7 rounded-xl bg-[#f0e7dc] text-[#8c422f] flex items-center justify-center shrink-0 mt-0.5">
-                    <MessageCircle className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-semibold text-[#231c17]">Canal Aberto & Atualizações</h4>
-                    <p className="text-xs text-[#6e5f52] leading-relaxed">
-                      Acompanhe avisos sobre atendimentos, novidades e abertura de horários para psicoterapia online.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Botões de Ação para Redes Sociais */}
-              <div className="pt-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+              {/* Botões / Cards para as Redes Sociais */}
+              <div className="pt-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {/* Instagram Card */}
                 <a
                   href={instagramUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full text-sm font-semibold text-white bg-gradient-to-r from-[#833ab4] via-[#fd1d1d] to-[#fcb045] hover:opacity-95 hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] transition-all shadow-md group"
+                  className="p-5 rounded-2xl bg-white border border-[#e5d9ca] hover:border-[#dd2a7b] hover:shadow-md transition-all group flex flex-col justify-between"
                 >
-                  <Instagram className="w-5 h-5 text-white" />
-                  <span>Seguir no Instagram {instagramHandle}</span>
-                  <ExternalLink className="w-4 h-4 text-white/90 group-hover:translate-x-0.5 transition-transform" />
+                  <div className="flex items-center gap-3.5 mb-4">
+                    <div className="w-11 h-11 rounded-xl bg-gradient-to-tr from-[#f58529] via-[#dd2a7b] to-[#8134af] flex items-center justify-center text-white shrink-0 shadow-xs group-hover:scale-105 transition-transform">
+                      <Instagram className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h4 className="text-base font-semibold text-[#231c17] group-hover:text-[#dd2a7b] transition-colors leading-tight">
+                        Instagram
+                      </h4>
+                      <span className="text-xs text-[#7a6b5e]">
+                        {instagramHandle}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="pt-3 border-t border-[#f0e7dc] flex items-center justify-between text-xs font-semibold text-[#8c422f] group-hover:text-[#dd2a7b] transition-colors">
+                    <span>Conhecer Instagram</span>
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </div>
                 </a>
 
+                {/* TikTok Card */}
+                <a
+                  href={tiktokUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-5 rounded-2xl bg-white border border-[#e5d9ca] hover:border-[#111111] hover:shadow-md transition-all group flex flex-col justify-between"
+                >
+                  <div className="flex items-center gap-3.5 mb-4">
+                    <div className="w-11 h-11 rounded-xl bg-[#111111] flex items-center justify-center text-white shrink-0 shadow-xs group-hover:scale-105 transition-transform">
+                      <svg
+                        className="w-5 h-5 fill-current"
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                      >
+                        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 3 15.69 6.34 6.34 0 0 0 9.34 22a6.34 6.34 0 0 0 6.34-6.34V8.58a8.27 8.27 0 0 0 4.84 1.55v-3.44a4.85 4.85 0 0 1-.93 0z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="text-base font-semibold text-[#231c17] group-hover:text-[#111111] transition-colors leading-tight">
+                        TikTok
+                      </h4>
+                      <span className="text-xs text-[#7a6b5e]">
+                        {tiktokHandle}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="pt-3 border-t border-[#f0e7dc] flex items-center justify-between text-xs font-semibold text-[#8c422f] group-hover:text-[#111111] transition-colors">
+                    <span>Conhecer TikTok</span>
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </a>
+              </div>
+
+              {/* Canal WhatsApp direto */}
+              <div className="pt-2">
                 <a
                   href={getWhatsappLink(
-                    'Olá, Marcela! Vi seu perfil no Instagram e gostaria de saber mais informações sobre os atendimentos online.'
+                    'Olá, Marcela! Vi suas publicações nas redes sociais e gostaria de saber mais informações sobre os atendimentos online.'
                   )}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full text-sm font-medium border border-[#ded2c1] text-[#362d26] hover:bg-[#ebe3d7]/60 transition-colors"
+                  className="inline-flex items-center gap-2 text-xs font-medium text-[#7a6b5e] hover:text-[#8c422f] transition-colors"
                 >
-                  <MessageCircle className="w-4 h-4 text-[#8c422f]" />
-                  <span>Chamar no WhatsApp</span>
+                  <MessageCircle className="w-3.5 h-3.5 text-[#8c422f]" />
+                  <span>Prefere falar direto? Chame no WhatsApp ({whatsappDisplay})</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
                 </a>
               </div>
             </div>
@@ -1067,8 +1058,7 @@ export default function App() {
               </h2>
 
               <p className="text-base md:text-lg text-[#55473c] font-light leading-relaxed">
-                Dar o primeiro passo em direção ao cuidado de si pode suscitar dúvidas. 
-                Estou à disposição para acolher suas perguntas e agendar sua sessão.
+                Você não precisa ter tudo organizado para começar. Podemos começar pelo que hoje está pedindo espaço para ser dito.
               </p>
 
               {/* Direct WhatsApp Callout Card */}
@@ -1088,13 +1078,14 @@ export default function App() {
                 </div>
 
                 <a
-                  href={getWhatsappLink()}
+                  href={getWhatsappLink('Olá, Marcela! Gostaria de conversar com você sobre o atendimento psicoterapêutico.')}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-sm font-medium bg-[#2e7d32] text-white hover:bg-[#1b5e20] transition-colors shadow-sm"
+                  className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-sm font-semibold bg-[#2e7d32] text-white hover:bg-[#1b5e20] transition-colors shadow-sm"
                 >
                   <MessageCircle className="w-4 h-4" />
-                  Chamar no WhatsApp ({whatsappDisplay})
+                  <span>Falar com Marcela</span>
+                  <ArrowRight className="w-4 h-4" />
                 </a>
               </div>
 
@@ -1108,9 +1099,9 @@ export default function App() {
                 />
                 <div className="text-xs text-[#6e5f52]">
                   <strong className="block font-semibold text-[#2c2520] font-serif text-sm">
-                    Marcela Gasques
+                    Marcela Gasques · CRP 06/238765
                   </strong>
-                  Atendimento com dedicação, ética e respeito ao seu processo.
+                  Psicóloga Clínica · Atendimento ético com escuta atenta e sigilo integral.
                 </div>
               </div>
             </div>
@@ -1207,7 +1198,7 @@ export default function App() {
 
                     <div className="space-y-1.5">
                       <label className="text-xs font-semibold uppercase tracking-wider text-[#55473c]">
-                        Assunto Principal de Interesse
+                        O que trouxe você até aqui?
                       </label>
                       <select
                         value={formData.assunto}
@@ -1216,11 +1207,12 @@ export default function App() {
                         }
                         className="w-full px-4 py-3 rounded-xl border border-[#ded2c1] bg-[#faf8f5] text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#8c422f]/30"
                       >
-                        <option value="Psicoterapia (Autoconhecimento)">01. Psicoterapia / Autoconhecimento</option>
-                        <option value="Relações e vínculos">02. Relações e vínculos afetivos</option>
-                        <option value="Perdas e luto">03. Perdas, luto e reconstrução</option>
-                        <option value="Escolhas e mudanças">04. Escolhas, transições e mudanças</option>
-                        <option value="Dúvida geral sobre psicoterapia online">Dúvida geral sobre psicoterapia online</option>
+                        <option value="Quero conhecer a psicoterapia">Quero conhecer a psicoterapia</option>
+                        <option value="Relações e vínculos">Relações e vínculos</option>
+                        <option value="Perdas e luto">Perdas e luto</option>
+                        <option value="Escolhas e mudanças">Escolhas e mudanças</option>
+                        <option value="Ansiedade e questões emocionais">Ansiedade e questões emocionais</option>
+                        <option value="Outro">Outro</option>
                       </select>
                     </div>
 
@@ -1271,10 +1263,10 @@ export default function App() {
 
                     <button
                       type="submit"
-                      className="w-full py-4 rounded-xl text-sm uppercase tracking-wider font-semibold bg-[#2e7d32] text-white hover:bg-[#1b5e20] transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer group"
+                      className="w-full py-4 rounded-xl text-sm font-semibold bg-[#2e7d32] text-white hover:bg-[#1b5e20] transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer group"
                     >
                       <MessageCircle className="w-5 h-5 text-white" />
-                      <span>Conversar no WhatsApp ({whatsappDisplay})</span>
+                      <span>Falar com Marcela</span>
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </button>
                   </form>
@@ -1294,7 +1286,7 @@ export default function App() {
                 Marcela Gasques
               </span>
               <p className="text-xs text-[#a8988a] uppercase tracking-widest mt-1">
-                Psicóloga Clínica · CRP Ativo
+                Psicóloga Clínica · CRP 06/238765 · Atendimento 100% Online
               </p>
             </div>
 
@@ -1313,10 +1305,22 @@ export default function App() {
                 href={instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-[#833ab4]/20 via-[#fd1d1d]/20 to-[#fcb045]/20 border border-white/10 text-[#f5c6cb] hover:text-white transition-colors"
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-[#833ab4]/20 via-[#fd1d1d]/20 to-[#fcb045]/20 border border-white/10 text-[#f5c6cb] hover:text-white transition-colors text-xs"
               >
                 <Instagram className="w-3.5 h-3.5 text-[#fcb045]" />
-                <span>{instagramHandle}</span>
+                <span>Instagram: {instagramHandle}</span>
+              </a>
+
+              <a
+                href={tiktokUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/10 text-white/90 hover:text-white transition-colors text-xs"
+              >
+                <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                  <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 3 15.69 6.34 6.34 0 0 0 9.34 22a6.34 6.34 0 0 0 6.34-6.34V8.58a8.27 8.27 0 0 0 4.84 1.55v-3.44a4.85 4.85 0 0 1-.93 0z" />
+                </svg>
+                <span>TikTok: {tiktokHandle}</span>
               </a>
 
               <div className="flex flex-wrap items-center gap-6">
@@ -1324,13 +1328,13 @@ export default function App() {
                   Sobre
                 </a>
                 <a href="#cuidado" className="hover:text-white transition-colors">
-                  Possibilidades de cuidado
+                  O que trabalhamos
                 </a>
                 <a href="#como-funciona" className="hover:text-white transition-colors">
                   Como funciona
                 </a>
                 <a href="#instagram" className="hover:text-white transition-colors">
-                  Instagram
+                  Redes Sociais
                 </a>
                 <a href="#faq" className="hover:text-white transition-colors">
                   Perguntas frequentes

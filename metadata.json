@@ -1,6 +1,6 @@
 {
   "name": "Marcela Gasques - Psicóloga Clínica",
-  "description": "Site profissional de Marcela Gasques, psicóloga clínica. Atendimento psicoterapêutico 100% online, possibilidades de cuidado e acolhimento.",
+  "description": "Site oficial de Marcela Gasques, psicóloga clínica (CRP 06/238765). Atendimento psicoterapêutico 100% online orientado pela Psicanálise para adolescentes e adultos.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
