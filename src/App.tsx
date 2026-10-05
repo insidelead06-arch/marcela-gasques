@@ -449,12 +449,12 @@ export default function App() {
                 <div className="absolute -top-4 -left-4 w-full h-full rounded-2xl border-2 border-[#d9ccbd] -z-10" />
                 <div className="overflow-hidden rounded-2xl shadow-md border border-[#e5d9ca] bg-[#faf8f5]">
                   <img
-                    src="./assets/marcela_gasques_real.jpg"
+                    src="./assets/marcela_gasques_about.jpg"
                     alt="Marcela Gasques - Psicóloga Clínica"
                     referrerPolicy="no-referrer"
                     className="w-full h-auto object-contain block rounded-2xl"
                     onError={(e) => {
-                      e.currentTarget.src = 'https://i.imgur.com/nJWDKW9.jpeg';
+                      e.currentTarget.src = 'https://i.imgur.com/JXFPHCl.jpeg';
                     }}
                   />
                 </div>
